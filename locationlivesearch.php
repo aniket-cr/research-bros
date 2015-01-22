@@ -16,8 +16,7 @@ if(strlen($qu) == 0)
     exit();
 }   
 
-$sql = "SELECT *,MATCH(tags) AGAINST ('$qu') AS tag_match FROM equipment WHERE MATCH (tags) AGAINST ('$qu')
-ORDER BY (tag_match) DESC;";
+$sql = "SELECT name FROM geolocation where lower(name) like '%$qu%'";
 $result = $conn->query($sql);
 
 
