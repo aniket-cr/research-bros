@@ -694,6 +694,16 @@ function changetext3(){
   box-shadow:0px 0px 10px rgba(black,.3);
 }
 
+.page-number{
+  width:25px;
+  height:35px;
+  background-color: #1ea78d;
+  color:#fff;
+  margin-top: 10px;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
 
 
 
@@ -736,12 +746,12 @@ $rs_result = mysqli_query($conn,$sql); //run the query
 $total_records = mysqli_num_rows($rs_result);  //count number of records
 $total_pages = ceil($total_records / $num_rec_per_page); 
 
-echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=1'>".'|<'."</a> "; // Goto 1st page  
+echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=1'><div class='page-number'>".'|<'."</div></a> "; // Goto 1st page  
 
 for ($i=1; $i<=$total_pages; $i++) { 
             echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=".$i."'><div class='page-number'>".$i."</div></a> "; 
 }
-echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=$total_pages'>".'>|'."</a> "; // Goto last page
+echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=$total_pages'><div class='page-number'>".'>|'."</div></a> "; // Goto last page
 
 $conn->close();
 ?>
