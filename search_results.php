@@ -14,8 +14,21 @@ $start_from = ($page-1) * $num_rec_per_page;
 
 $qu = $_REQUEST['name'];
 
-$sql = "SELECT *,MATCH(tags) AGAINST ('$qu') AS tag_match FROM equipment WHERE MATCH (tags) AGAINST ('$qu')
+if(isset($_REQUEST['search']))
+{
+	$location = $_REQUEST['search'];
+}
+
+if(isset($location))
+{
+	//location is set, now fetch the location entered by the user
+	$sql = "SELECT equipment.*,b.name as location,MATCH(tags) AGAINST ('$qu') AS tag_match,(111.1111 * DEGREES(ACOS(COS(RADIANS(a.latitude))* COS(RADIANS(b.latitude))* COS(RADIANS(a.longitude - b.longitude))+ SIN(RADIANS(a.latitude))* SIN(RADIANS(b.latitude))))) AS distance_in_km FROM equipment,geolocation as a,geolocation as b WHERE lower(a.name)=lower('$location') AND b.locationID=equipment.location AND MATCH (tags) AGAINST ('$qu') ORDER BY  distance_in_km,(tag_match) DESC LIMIT $start_from, $num_rec_per_page;";
+}
+else
+{
+$sql = "SELECT equipment.*,geolocation.name as location,MATCH(tags) AGAINST ('$qu') AS tag_match FROM equipment,geolocation WHERE locationID=location AND MATCH (tags) AGAINST ('$qu')
 ORDER BY (tag_match) DESC LIMIT $start_from, $num_rec_per_page;";
+}
 $result = $conn->query($sql);
 
 ?>
@@ -39,8 +52,8 @@ $result = $conn->query($sql);
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>         
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="Scripts/jquery-1.9.1.min.js"></script>         
+        <script src="Content/bootstrap.min.js"></script>
 
             <!-- Important Owl stylesheet -->
         <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
@@ -484,6 +497,15 @@ $result = $conn->query($sql);
                         $("#content").html(data);
                     });
         };
+		
+		function locationlivevalue(value){
+            $.post(
+                    "locationlivesearch.php",
+                    {keyword:value},
+                    function(data){
+                        $("#locationSearch").html(data);
+                    });
+        };
         
 
 
@@ -711,7 +733,8 @@ function changetext3(){
 
 <div class="searchcontainer">
     <form class="searchbox">
-        <input type="search" placeholder="Search.." name="search" class="searchbox-input" onkeyup="buttonUp();" required>
+        <input type="search" placeholder="Search.." name="search" id="locationSearch" class="searchbox-input" onkeyup="buttonUp();locationlivevalue(this.value);" required>
+        <input type="hidden" name="name" value="<?php echo $_REQUEST['name'] ?>"/>
         <input type="submit" class="searchbox-submit" value="Search By Location?">
         <span class="searchbox-icon">Search By Location?</span>
     </form>
@@ -746,12 +769,20 @@ $rs_result = mysqli_query($conn,$sql); //run the query
 $total_records = mysqli_num_rows($rs_result);  //count number of records
 $total_pages = ceil($total_records / $num_rec_per_page); 
 
-echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=1'><div class='page-number'>".'|<'."</div></a> "; // Goto 1st page  
+if(isset($_REQUEST['search']))
+{
+	$location = "&search=".$_REQUEST['search'];
+}
+else
+{
+	$location = "";
+}
+echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=1".$location."'><div class='page-number'>".'|<'."</div></a> "; // Goto 1st page  
 
 for ($i=1; $i<=$total_pages; $i++) { 
-            echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=".$i."'><div class='page-number'>".$i."</div></a> "; 
+            echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=".$i.$location."'><div class='page-number'>".$i."</div></a> "; 
 }
-echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=$total_pages'><div class='page-number'>".'>|'."</div></a> "; // Goto last page
+echo "<a style='margin-left:25px;float:left;text-decoration:none;' href='search_results.php?name=$qu&page=$total_pages".$location."'><div class='page-number'>".'>|'."</div></a> "; // Goto last page
 
 $conn->close();
 ?>
