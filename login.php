@@ -27,7 +27,7 @@ else
 	$_SESSION['email'] = $email;
 	$_SESSION['name'] = $result['name'];
 	$_SESSION['contact'] = $result['contact'];
-	header('Location: university.php');
+	header('Location: institute.php');
 }
 mysqli_close($connect);
 ?>

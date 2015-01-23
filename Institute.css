@@ -1,0 +1,122 @@
+.sback{
+    background-color: #1ea780;
+}
+
+body{
+    background-color: #f4f7f4;
+}
+
+.container1{
+    min-height: 620px;
+    background-color: #f4f7f4;
+    margin-top: 30px;
+}
+
+.container2{
+    background-color: #f4f7f4;
+    min-height: 152px;
+    margin-bottom: 30px;
+}
+
+.container2 h2{
+    margin-top: 30px;
+    margin-left: 61px;
+    font-family: "Open Sans";
+    color: #30333A;
+    font-size: 27px;
+    font-weight: 200;
+}
+
+.container2 h5{
+    margin-top: 10px;
+    margin-left: 61px;
+    font-family: "Open Sans";
+    color: #808080;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.insdisc{
+    height: 112px;
+    width: 112px;
+    border: 1px solid rgba(0,0,0,0.11);
+    margin: 20px 0px 0px 25px;
+    overflow: hidden;
+}
+
+.insdiscimg{
+    display: block;
+    max-height: 80px;
+    max-width: 80px;
+    height: auto;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6%;
+}
+
+
+.containerlab{
+    margin-left: 25px;
+    margin-top: -1px;
+    background-color: #fff;
+    min-height: 153px;
+    width: 75.7%;
+    border: 1px solid rgba(0,0,0,0.11);
+}
+
+.containerlab h2{
+    margin-top: 26px;
+    margin-left: 68px;
+    font-family: "Arial";
+    color: #30333A;
+    font-size: 21px;
+    font-weight: 200;
+}
+
+.containerlab h5{
+    margin-top: 10px;
+    margin-left: 68px;
+    font-family: "Open Sans";
+    color: #808080;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.labdisc{
+    height: 105px;
+    width: 105px;
+    border: 1px solid rgba(0,0,0,0.11);
+    margin: 19px 0px 0px 18px;
+}
+
+.labdiscimg{
+    display: block;
+    max-height: 80px;
+    max-width: 80px;
+    height: auto;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6%;
+}
+
+.knowmore{
+    text-align: right;
+    margin-right: 50px;
+    margin-top: 116px;
+    font-family: "Open Sans";
+    color: #808080;
+    font-size: 14px;
+    font-weight: 400; 
+}
+
+.knowmore a:hover, .knowmore a:focus{
+    text-decoration: none;
+    color: #0094ff;
+}
+
+
+.bottom{
+    background-color: #1ea780;
+}

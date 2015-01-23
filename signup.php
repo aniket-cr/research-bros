@@ -17,7 +17,10 @@ $query = "INSERT INTO user VALUES('$email',md5('$pass'),'$name','$contact');";
 $result = mysqli_query($connect,$query);
 if($result == TRUE)
 {
-	echo "Signed up";
+	$_SESSION['email'] = $email;
+	$_SESSION['name'] = $name;
+	$_SESSION['contact'] = $contact;
+	header('Location: institute.php');
 }
 else
 {
