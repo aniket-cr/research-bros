@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Signed up</title>
+<?php
+session_start();
+ob_start();
+?>
 </head>
 
 <body>
@@ -14,6 +18,7 @@ $contact = $_POST['contact'];
 $name = $_POST['name'];
 $connect = mysqli_connect($servername,$username,$password,$dbname);
 $query = "INSERT INTO user VALUES('$email',md5('$pass'),'$name','$contact');";
+echo $query;
 $result = mysqli_query($connect,$query);
 if($result == TRUE)
 {
